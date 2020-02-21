@@ -1,58 +1,45 @@
 import React, { Component } from 'react'
 import Filter from './Filter'
+import Allresorts from './Allresorts'
 
 export default class FilterContainer extends Component {
     
-    state = {
-        resorts: [],
-        filteredResorts: [],
-    }
+   state = {
+       resorts: [],
+       filteredResorts: []
+   }
 
-    componentWillMount() {
+    componentDidMount(){
         fetch("https://blooming-everglades-24576.herokuapp.com/resorts")
-        .then(res => res.json())
+        .then(resp => resp.json())
         .then(resorts => {
-            this.setState({
-                resorts
-            })
+            this.setState({resorts})
         })
     }
 
+    resortFilter = filteredResorts => {
+        this.setState({ filteredResorts })
+      }
     
-
-    filtered = event => {
-        let updated = this.state.resorts
-        updated = updated.filter(resort => {
-            return (
-                resort.resortname.toLowerCase().search(event.target.value.toLowerCase()) !== -1
-            )
+      filtered = () => {
+        return this.state.resorts.filter(resort => {
+          return (
+           resort.resortname.toLowerCase().includes(this.state.filteredResorts)
+          )
         })
-        console.log('filter', updated)
-        this.setState ({
-            filteredResorts: updated
-        })
-    }
-
+      }
 
     render() {
-       return (
+        return (
             <div>
-                <div className="form-group">
-                    <input type="text" style={{margin: '2rem'}}  onChange = {this.filtered} />
-                    <button type="submit" className="btn btn-primary">Search</button>
-                </div>
-
-                {this.state.resorts.map(resort => {
-                    return (
-                                <div style={{margin: '0.5rem'}}>
-                                    {resort.resortname}
-                                </div>
-                            ) 
-                })}
-            </div>
-    )
-
+                <Filter filteredResorts = {this.state.filteredResorts} 
+                resortFilter = {this.resortFilter} />
+            
         
+                <Allresorts filtered = {this.filtered()} />
+            </div>
+
+        )
     }
 }
 

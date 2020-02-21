@@ -1,9 +1,19 @@
-// import React from 'react'
+import React from 'react'
 
-// export default function Filter({resortname}) {
-//     return (
-//         <div style={{margin: '0.5rem'}}>
-//             {resortname}
-//         </div>
-//     )
-// }
+export default function Filter(props) {
+    
+    const updateSearchTerm = event => {
+        props.updateSearchTerm(event.target.value)
+    }
+
+    return (
+        <form>
+            <input
+                type="text"
+                value={props.searchTerm}
+                placeholder="search resort"
+                onChange={updateSearchTerm}
+            />
+        </form>
+    )
+}
