@@ -2,17 +2,17 @@ import React from 'react'
 
 export default function Filter(props) {
     
-    const updateSearchTerm = event => {
-        props.updateSearchTerm(event.target.value)
+    const resortFilter = event => {
+        props.resortFilter(event.target.value)
     }
 
     return (
         <form>
             <input
                 type="text"
-                value={props.searchTerm}
+                // value={props.filteredResorts}
                 placeholder="search resort"
-                onChange={updateSearchTerm}
+                onChange={resortFilter}
             />
         </form>
     )
