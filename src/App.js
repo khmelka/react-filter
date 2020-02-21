@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import FilterContainer from './conteiner/FilterContainer'
+import FilterContainer from './container/FilterContainer'
 
 function App() {
   return (
